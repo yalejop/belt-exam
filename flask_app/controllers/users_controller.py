@@ -15,15 +15,15 @@ bcrypt = Bcrypt(app) #inicializando instancia de bcrypt
 def index():
     return render_template('index.html')
 
-@app.route('/register')
+@app.route('/register/')
 def register_template():
     return render_template('register.html')
 
-@app.route('/login')
+@app.route('/login/')
 def login_template():
     return render_template('login.html')
 
-@app.route('register/register_user', methods=['POST'])
+@app.route('/register/register_user', methods=['POST'])
 def register():
     if not User.valida_usuario(request.form):
         return redirect('/')
@@ -46,7 +46,7 @@ def register():
     return redirect('/dashboard')
 
 #creando ruta para /register
-@app.route('login/login_user', methods=['POST'])
+@app.route('/login/login_user', methods=['POST'])
 def login():
     user = User.get_by_email(request.form)
     if not user: #si user=False
