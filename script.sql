@@ -32,24 +32,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gelato_store_project`.`orders`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gelato_store_project`.`orders` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_orders_users_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_orders_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `gelato_store_project`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `gelato_store_project`.`ice_creams_types`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gelato_store_project`.`ice_creams_types` (
@@ -90,20 +72,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `gelato_store_project`.`ice_creams` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `quantity` INT NULL,
-  `order_id` INT NOT NULL,
   `ice_cream_type_id` INT NOT NULL,
   `ice_cream_size_id` INT NOT NULL,
   `ice_cream_delivery_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_ice_creams_orders1_idx` (`order_id` ASC) VISIBLE,
   INDEX `fk_ice_creams_ice_creams_types1_idx` (`ice_cream_type_id` ASC) VISIBLE,
   INDEX `fk_ice_creams_ice_creams_sizes1_idx` (`ice_cream_size_id` ASC) VISIBLE,
   INDEX `fk_ice_creams_ice_creams_deliveries1_idx` (`ice_cream_delivery_id` ASC) VISIBLE,
-  CONSTRAINT `fk_ice_creams_orders1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `gelato_store_project`.`orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_ice_creams_ice_creams_types1`
     FOREIGN KEY (`ice_cream_type_id`)
     REFERENCES `gelato_store_project`.`ice_creams_types` (`id`)
@@ -117,6 +92,31 @@ CREATE TABLE IF NOT EXISTS `gelato_store_project`.`ice_creams` (
   CONSTRAINT `fk_ice_creams_ice_creams_deliveries1`
     FOREIGN KEY (`ice_cream_delivery_id`)
     REFERENCES `gelato_store_project`.`ice_creams_deliveries` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gelato_store_project`.`orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gelato_store_project`.`orders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` INT NOT NULL,
+  `ice_cream_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_orders_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_orders_ice_creams1_idx` (`ice_cream_id` ASC) VISIBLE,
+  CONSTRAINT `fk_orders_users`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `gelato_store_project`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orders_ice_creams1`
+    FOREIGN KEY (`ice_cream_id`)
+    REFERENCES `gelato_store_project`.`ice_creams` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
