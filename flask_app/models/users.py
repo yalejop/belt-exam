@@ -14,14 +14,16 @@ class User:
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.email = data['email']
+        self.address = data['address']
+        self.city = data['city']
         self.password = data['password']
         self.created_at = data['created_at']
         self.update_at = data['updated_at']
 
     @classmethod
     def save(cls, formulario):
-        query = 'INSERT INTO users(first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)'
-        result = connectToMySQL('belt-exam').query_db(query, formulario)
+        query = 'INSERT INTO users(first_name, last_name, email, address, city, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(address)s, %(city)s, %(password)s)'
+        result = connectToMySQL('gelato_store_project').query_db(query, formulario)
         return result 
     
     @staticmethod
@@ -47,6 +49,14 @@ class User:
         if not EMAIL_REGEX.match(formulario['email']):
             flash('Email Invalido', 'registro')
             es_valido = False
+            
+        if formulario['address'] == "":
+            flash('Dirección debe tener algo de contenido', 'registro')
+            es_valido = False
+            
+        if formulario['city'] == "":
+            flash('Ciudad debe tener algo de contenido', 'registro')
+            es_valido = False
 
         if len(formulario['password']) < 8:
             flash('Contraseña debe tener al menos 6 caracteres', 'registro')
@@ -58,7 +68,7 @@ class User:
 
         #Consultar si YA existe el correo
         query = 'SELECT * FROM users WHERE email = %(email)s'
-        result = connectToMySQL('belt-exam').query_db(query, formulario)
+        result = connectToMySQL('gelato_store_project').query_db(query, formulario)
         if len(result) >= 1:
             flash('E-mail registrado Previamente', 'registro')
             es_valido = False
@@ -68,7 +78,7 @@ class User:
     @classmethod
     def get_by_email(cls, formulario):
         query = 'SELECT * FROM users WHERE email = %(email)s'
-        result = connectToMySQL('belt-exam').query_db(query, formulario)
+        result = connectToMySQL('gelato_store_project').query_db(query, formulario)
         if len(result) < 1:
             return False
         else:
@@ -78,7 +88,7 @@ class User:
     @classmethod
     def get_by_id(cls, formulario):
         query = 'SELECT * FROM users WHERE id = %(id)s'
-        result = connectToMySQL('belt-exam').query_db(query, formulario)
+        result = connectToMySQL('gelato_store_project').query_db(query, formulario)
         user = cls(result[0])
         return user
             
