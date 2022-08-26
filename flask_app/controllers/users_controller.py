@@ -23,10 +23,10 @@ def register_template():
 def login_template():
     return render_template('login.html')
 
-@app.route('/register/register_user', methods=['POST'])
+@app.route('/register/register_user/', methods=['POST'])
 def register():
     if not User.valida_usuario(request.form):
-        return redirect('/')
+        return redirect('/register/')
 
     pwd = bcrypt.generate_password_hash(request.form['password']) #me encripta el password
 
@@ -46,16 +46,16 @@ def register():
     return redirect('/dashboard')
 
 #creando ruta para /register
-@app.route('/login/login_user', methods=['POST'])
+@app.route('/login/login_user/', methods=['POST'])
 def login():
     user = User.get_by_email(request.form)
     if not user: #si user=False
         flash('E-mail no Encontrado', 'login')
-        return redirect('/')
+        return redirect('/login/')
 
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash('Password incorrecto', 'login')
-        return redirect('/')
+        return redirect('/login/')
 
     session['user_id'] = user.id
 
