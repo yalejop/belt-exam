@@ -4,7 +4,7 @@ from flask_app import app
 
 #importando el modelo de User
 from flask_app.models.users import User
-from flask_app.models.appointments import Appointment
+
 
 #importando BCrypt (encriptar)
 from flask_bcrypt import Bcrypt
@@ -15,7 +15,15 @@ bcrypt = Bcrypt(app) #inicializando instancia de bcrypt
 def index():
     return render_template('index.html')
 
-@app.route('/register', methods=['POST'])
+@app.route('/register/')
+def register_template():
+    return render_template('register.html')
+
+@app.route('/login/')
+def login_template():
+    return render_template('login.html')
+
+@app.route('/register/register_user', methods=['POST'])
 def register():
     if not User.valida_usuario(request.form):
         return redirect('/')
@@ -26,6 +34,8 @@ def register():
         'first_name': request.form['first_name'],
         'last_name': request.form['last_name'],
         'email': request.form['email'],
+        'address': request.form['address'],
+        'city': request.form['city'],
         'password': pwd
     }
 
@@ -33,10 +43,10 @@ def register():
 
     session['user_id'] = id #guardando el id de mi usuario
 
-    return redirect('/appointments')
+    return redirect('/dashboard')
 
 #creando ruta para /register
-@app.route('/login', methods=['POST'])
+@app.route('/login/login_user', methods=['POST'])
 def login():
     user = User.get_by_email(request.form)
     if not user: #si user=False
@@ -49,10 +59,10 @@ def login():
 
     session['user_id'] = user.id
 
-    return redirect('/appointments')    
+    return redirect('/dashboard')    
 
-@app.route('/appointments')
-def appointments():
+@app.route('/dashboard')
+def dashboard():
     if 'user_id' not in session:
         return redirect('/')
     
@@ -62,15 +72,15 @@ def appointments():
 
     user = User.get_by_id(formulario)
 
-    appointments = Appointment.get_all()
+    # dashboard = Appointment.get_all()
 
-    return render_template('appointments.html', usuario = user, appointments = appointments)
+    return render_template('dashboard.html', usuario = user)
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html')
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     return render_template('404.html')
