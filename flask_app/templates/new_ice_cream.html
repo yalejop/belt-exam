@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Recipe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <header class="d-flex justify-content-between align-items-center">
+        <a href="/logout" class="btn btn-danger col-2 mt-4">Log Out</a>
+    </header>
+    <div class="container card mt-4 mb-3">
+        {% with messages = get_flashed_messages(category_filter=['create_ice_cream'])%}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <h1>Craft An Ice Cream:</h1>
+        <form action="/create/order/" method="post">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <div class="form-group mt-2">
+                <label for="method">Delivery Method:</label>
+                <select class="form-control" id="method" name="method">
+                    <option selected value="0">Home Delivery</option>
+                    <option value="1">CarryOut</option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="size">Size:</label>
+                <select class="form-control" id="size" name="size">
+                    <option selected value="0">Small</option>
+                    <option value="1">Medium</option>
+                    <option value="2">Large</option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="type">Type:</label>
+                <select class="form-control" id="type" name="type">
+                    <option selected value="0">Helado de Yogurt</option>
+                    <option value="1">Helado de Almendras</option>
+                    <option value="2">Yogurt Griego</option>
+                </select>
+            </div>
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <div class="form-group">
+                <label for="quantity">Cantidad:</label>
+                <input type="number" id="quantity" name="quantity" class="form-control">
+            </div>
+            <legend>Toppings:</legend>
+            <fieldset class="form-group mt-2">
+                <label><input type="checkbox" id="id" value="id">nombre</label><br>
+            </fieldset>
+            
+            <a href="/dashboard/" class="btn btn-primary mt-2">Back</a>
+            <input type="submit" class="btn btn-success mt-2" value="Add To Order">
+        </form>
+    </div>
+</body>
+</html>

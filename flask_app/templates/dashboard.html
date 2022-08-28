@@ -9,13 +9,34 @@
 </head>
 <body>
     <div class="container">
-
-        <header class="d-flex justify-content-between align-items-center">
-            <h1>Bienvenid@ {{usuario.first_name}}</h1>
-            <a href="/new/recipe" class="btn btn-primary">Agregar Receta</a>
-            <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
-        </header>
-        
+        <div class="row">
+            <header class="d-flex justify-content-between align-items-center">
+                <h1>Bienvenid@ {{usuario.first_name}}</h1>
+                <a href="/logout/" class="btn btn-danger">Cerrar Sesión</a>
+            </header>
+            <h1>Quick Options</h1>
+            <div class="col-4">
+                <div class="card">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus, numquam eum consectetur similique quibusdam. Laboriosam sit, minus quia provident nulla soluta assumenda iure, iusto delectus fugiat architecto expedita magni!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident libero, ullam nulla necessitatibus ratione tempora nesciunt quod vitae, ducimus id, omnis voluptatum dolore vero exercitationem ab eos dolorum reiciendis! Dolorem.</p>
+                    <a href="/new/order/" class="btn btn-primary">New Order</a>
+                </div>   
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus, numquam eum consectetur similique quibusdam. Laboriosam sit, minus quia provident nulla soluta assumenda iure, iusto delectus fugiat architecto expedita magni!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, temporibus quod voluptas animi atque sunt nemo rem nostrum ipsum qui? Fugit facere tempora deleniti rerum iste temporibus dolorum quas voluptatum?</p>
+                    <a href="#" class="btn btn-primary">Re-Order My Fave</a>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus, numquam eum consectetur similique quibusdam. Laboriosam sit, minus quia provident nulla soluta assumenda iure, iusto delectus fugiat architecto expedita magni!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, temporibus quod voluptas animi atque sunt nemo rem nostrum ipsum qui? Fugit facere tempora deleniti rerum iste temporibus dolorum quas voluptatum?</p>
+                    <a href="#" class="btn btn-primary">Surprise Me</a>
+                </div>
+            </div>
+        </div>
     </div>
     
 </body>
