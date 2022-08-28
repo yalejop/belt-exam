@@ -64,7 +64,7 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
-        return redirect('/')
+        return redirect('/login/')
     
     formulario = {
         'id': session['user_id']
@@ -76,7 +76,7 @@ def dashboard():
 
     return render_template('dashboard.html', usuario = user)
 
-@app.route('/logout')
+@app.route('/logout/')
 def logout():
     session.clear()
     return redirect('/')
