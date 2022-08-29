@@ -72,8 +72,6 @@ def dashboard():
 
     user = User.get_by_id(formulario)
 
-    # dashboard = Appointment.get_all()
-
     return render_template('dashboard.html', usuario = user)
 
 @app.route('/logout/')
