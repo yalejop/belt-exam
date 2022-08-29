@@ -5,6 +5,7 @@ from flask_app import app
 #importando el modelo de recetas
 from flask_app.models.users import User
 from flask_app.models.orders import Order
+from flask_app.models.toppings import Topping 
 
 @app.route('/new/order/')
 def new_order():
@@ -17,9 +18,9 @@ def new_order():
 
     user = User.get_by_id(formulario)
     
-    #toppings = Order.get_all_toppings(formulario)
+    toppings = Topping.get_all_toppings()
     
-    return render_template('new_ice_cream.html', user=user)
+    return render_template('new_ice_cream.html', user=user, toppings=toppings)
 
 @app.route('/create/order/', methods=['POST'])
 def create_recipe():

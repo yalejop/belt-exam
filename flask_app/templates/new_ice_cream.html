@@ -54,10 +54,12 @@
             </div>
             <legend>Toppings:</legend>
             <fieldset class="form-group mt-2">
-                <label><input type="checkbox" id="id" value="id">nombre</label><br>
+                {% for topping in toppings %}
+                <label><input type="checkbox" id="{{topping.id}}" value="{{topping.id}}">{{topping.topping_name}} ${{topping.price}}</label><br>
+                {% endfor %}
             </fieldset>
             
-            <a href="/dashboard/" class="btn btn-primary mt-2">Back</a>
+            <a href="/dashboard" class="btn btn-primary mt-2">Back</a>
             <input type="submit" class="btn btn-success mt-2" value="Add To Order">
         </form>
     </div>
