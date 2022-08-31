@@ -27,24 +27,28 @@
             <div class="form-group mt-2">
                 <label for="method">Delivery Method:</label>
                 <select class="form-control" id="method" name="method">
-                    <option selected value="0">Home Delivery</option>
-                    <option value="1">CarryOut</option>
+                    <option selected value="">-- Seleccione una Opción --</option>
+                    {% for delivery in deliveries %}
+                        <option value="{{delivery.id}}">{{delivery.delivery_type}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group mt-2">
                 <label for="size">Size:</label>
                 <select class="form-control" id="size" name="size">
-                    <option selected value="0">Small</option>
-                    <option value="1">Medium</option>
-                    <option value="2">Large</option>
+                    <option selected value="">-- Seleccione una Opción --</option>
+                    {% for size in sizes %}
+                        <option value="{{size.id}}">{{size.size_name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group mt-2">
                 <label for="type">Type:</label>
                 <select class="form-control" id="type" name="type">
-                    <option selected value="0">Helado de Yogurt</option>
-                    <option value="1">Helado de Almendras</option>
-                    <option value="2">Yogurt Griego</option>
+                    <option selected value="">-- Seleccione una Opción --</option>
+                    {% for type in types %}
+                        <option value="{{type.id}}">{{type.type_name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <input type="hidden" name="user_id" value="{{user.id}}">

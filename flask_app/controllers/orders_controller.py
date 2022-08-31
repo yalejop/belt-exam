@@ -6,6 +6,9 @@ from flask_app import app
 from flask_app.models.users import User
 from flask_app.models.orders import Order
 from flask_app.models.toppings import Topping 
+from flask_app.models.types import Type
+from flask_app.models.deliveries import Delivery
+from flask_app.models.sizes import Size
 
 @app.route('/new/order/')
 def new_order():
@@ -18,9 +21,12 @@ def new_order():
 
     user = User.get_by_id(formulario)
     
+    deliveries = Delivery.get_all_types()
+    sizes = Size.get_all_sizes()
     toppings = Topping.get_all_toppings()
+    types = Type.get_all_types()
     
-    return render_template('new_ice_cream.html', user=user, toppings=toppings)
+    return render_template('new_ice_cream.html', user=user, toppings=toppings, types=types, deliveries=deliveries, sizes=sizes)
 
 @app.route('/create/order/', methods=['POST'])
 def create_recipe():
